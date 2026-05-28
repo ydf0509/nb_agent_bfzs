@@ -1,0 +1,2 @@
+# nb_agent_bfzs
+使用自己的nb_agent框架打造的agent，主要用于演示nb_agent框架的使用，简单快速打造用户自己的agent和tui界面。
