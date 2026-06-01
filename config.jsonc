@@ -1,0 +1,84 @@
+{
+    // ===== nb_agent_bfzs — 智能笔记助手配置 =====
+
+    "agent": {
+        "system_prompt": "你是一个智能笔记助手。你可以帮用户创建笔记、搜索笔记、统计项目信息。\n当用户需要写会议纪要或日报时，请先查看对应的 Skill 指南。\n请用中文回答。",
+        "default_model": "deepseek-chat",
+        "max_context_tokens": 32000,
+        "streaming": true
+    },
+
+    // LLM 提供商配置（以下选一个，或自行替换）
+    "provider": {
+        // 方案 1：DeepSeek 官方 API
+        "deepseek": {
+            "name": "DeepSeek",
+            "base_url": "https://api.deepseek.com/v1",
+            "api_key": "{env:DEEPSEEK_API_KEY}",
+            "models": {
+                "deepseek-chat": {
+                    "name": "DeepSeek V3",
+                    "limit": { "context": 64000, "output": 8192 }
+                }
+            }
+        }
+
+        // 方案 2：LiteLLM 本地代理（取消注释并注释掉方案 1）
+        // "litellm": {
+        //     "name": "LiteLLM Proxy",
+        //     "base_url": "http://localhost:4000/v1",
+        //     "api_key": "not-needed",
+        //     "models": {
+        //         "your-model-id": {
+        //             "name": "模型名称",
+        //             "limit": { "context": 128000, "output": 8192 }
+        //         }
+        //     }
+        // }
+    },
+
+    // MCP Server 配置
+    "mcp": {
+        // 书签管理 MCP（本地 stdio 方式）
+        "bookmark": {
+            "type": "local",
+            "command": ["python", "mcp_servers/bookmark_server.py"],
+            "enabled": true
+        }
+
+        // 文件系统 MCP：让 AI 读写指定目录的文件
+        // ⚠ 必须至少提供一个绝对路径，AI 只能访问列出的目录
+        // "filesystem": {
+        //     "command": "npx",
+        //     "args": [
+        //         "-y",
+        //         "@modelcontextprotocol/server-filesystem",
+        //         "D:/codes/nb_agent_bfzs"
+        //     ]
+        // },
+
+        // 实时网页搜索 MCP（SSE 方式）
+        // "web-search": {
+        //     "type": "sse",
+        //     "url": "http://localhost:3000/sse",
+        //     "enabled": true
+        // }
+    },
+
+    // 审批规则：危险工具需要用户确认
+    "approval": {
+        "dangerous_tools": ["delete_note"],
+        "auto_approve": false
+    },
+
+    // 会话存储
+    "session": {
+        "db_path": ""  // 空 = 默认 ~/.nb_agent/sessions.db
+    },
+
+    "ui": {
+        "theme": "dark",
+        "show_tool_panel": true,
+        "show_token_usage": true
+    }
+}
