@@ -30,7 +30,12 @@ app.run()
 
 ## 截图例子
 使用nb-agent创建一个娱乐八卦新闻智能体，在智能体超级爱你回话提问如下:杨幂这个月做了什么呀？截图如下
-![alt text](image.png)
+![alt text](pictures/image.png)
+
+创建智能体的界面截图:
+![alt text](pictures/image2.png)
+
+nb-agent 是个框架，自带tui，用户希望nb-agent 做什么都可以，可以用于ai coding编程，也可以用于联网娱乐八卦，也可以用于实现用户自定义的功能，nb-agent 不是限定只做claudecode opencdeo这样的ai编程终端。
 
 ## 项目结构
 
