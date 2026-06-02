@@ -7,6 +7,6 @@ build/
 venv/
 .env
 *.db
-notes/
+notes_data/
 data/
 .nb_agent/sessions.db

@@ -4,70 +4,141 @@
     "agent": {
         "system_prompt": "你是一个智能笔记助手。你可以帮用户创建笔记、搜索笔记、统计项目信息。\n当用户需要写会议纪要或日报时，请先查看对应的 Skill 指南。\n请用中文回答。",
         "default_model": "deepseek-chat",
-        "max_context_tokens": 32000,
         "streaming": true
     },
 
     // LLM 提供商配置（以下选一个，或自行替换）
-    "provider": {
-        // 方案 1：DeepSeek 官方 API
-        "deepseek": {
-            "name": "DeepSeek",
-            "base_url": "https://api.deepseek.com/v1",
-            "api_key": "{env:DEEPSEEK_API_KEY}",
+     "provider": {
+        "litellm": {
+            "name": "LiteLLM Proxy",
+            "base_url": "http://localhost:4000/v1",
+            "api_key": "not-needed",
             "models": {
-                "deepseek-chat": {
-                    "name": "DeepSeek V3",
-                    "limit": { "context": 64000, "output": 8192 }
+                "ds-deepseek-v4-flash": {
+                    "name": "DeepSeek V4 Flash (官方直连)",
+                    "limit": { "context": 1000000, "output": 384000 }
+                },
+                "ds-deepseek-v4-pro": {
+                    "name": "DeepSeek V4 Pro (官方直连)",
+                    "limit": { "context": 1000000, "output": 384000 }
+                },
+                "aku-qwen3.5-397b": {
+                    "name": "Qwen3.5 397B (公司)",
+                    "limit": { "context": 131072, "output": 65536 }
+                },
+                "aku-qwen3.6-35b": {
+                    "name": "Qwen3.6 35B (公司)",
+                    "limit": { "context": 131072, "output": 65536 }
+                },
+                "ark-code-latest": {
+                    "name": "Coding Plan Auto (方舟)",
+                    "limit": { "context": 200000, "output": 64000 }
+                },
+                "ark-doubao-seed-code": {
+                    "name": "Doubao Seed Code (方舟)",
+                    "limit": { "context": 200000, "output": 64000 }
+                },
+                "ark-deepseek-v3.2": {
+                    "name": "DeepSeek V3.2 (方舟)",
+                    "limit": { "context": 131072, "output": 65536 }
+                },
+                "ark-doubao-seed-2.0-code": {
+                    "name": "Doubao Seed 2.0 Code (方舟)",
+                    "limit": { "context": 200000, "output": 64000 }
+                },
+                "ark-doubao-seed-2.0-pro": {
+                    "name": "Doubao Seed 2.0 Pro (方舟)",
+                    "limit": { "context": 200000, "output": 64000 }
+                },
+                "ark-doubao-seed-2.0-lite": {
+                    "name": "Doubao Seed 2.0 Lite (方舟)",
+                    "limit": { "context": 200000, "output": 64000 }
+                },
+                "ark-minimax-m2.7": {
+                    "name": "MiniMax M2.7 (方舟)",
+                    "limit": { "context": 204800, "output": 204800 }
+                },
+                "ark-glm-5.1": {
+                    "name": "GLM-5.1 (方舟)",
+                    "limit": { "context": 200000, "output": 131072 }
+                },
+                "ark-kimi-k2.6": {
+                    "name": "Kimi K2.6 (方舟)",
+                    "limit": { "context": 262144, "output": 262144 }
+                },
+                "ark-deepseek-v4-flash": {
+                    "name": "DeepSeek V4 Flash (方舟)",
+                    "limit": { "context": 1000000, "output": 384000 }
+                },
+                "ark-deepseek-v4-pro": {
+                    "name": "DeepSeek V4 Pro (方舟)",
+                    "limit": { "context": 1000000, "output": 384000 }
                 }
             }
         }
-
-        // 方案 2：LiteLLM 本地代理（取消注释并注释掉方案 1）
-        // "litellm": {
-        //     "name": "LiteLLM Proxy",
-        //     "base_url": "http://localhost:4000/v1",
-        //     "api_key": "not-needed",
-        //     "models": {
-        //         "your-model-id": {
-        //             "name": "模型名称",
-        //             "limit": { "context": 128000, "output": 8192 }
-        //         }
-        //     }
-        // }
     },
+
 
     // MCP Server 配置
     "mcp": {
-        // 书签管理 MCP（本地 stdio 方式）
+        // 书签管理 MCP（本地 stdio 方式） ,这个是演示启动用户自己开发的mcp
         "bookmark": {
             "type": "local",
-            "command": ["python", "mcp_servers/bookmark_server.py"],
+            "command": ["D:/ProgramData/Miniconda3/envs/py312/python.exe", "mcp_servers/bookmark_server.py"],
+            "enabled": true
+        },
+
+
+
+        // Redis 工具 MCP（本地 stdio 方式）,这个是演示启动用户自己开发的mcp，并且演示了如何审批执行redis命令，nb_agent的tui会弹窗给用户确认是否需要继续执行。
+        // 连接配置: 环境变量 REDIS_URL 或 REDIS_HOST/REDIS_PORT/REDIS_PASSWORD/REDIS_DB
+        "redis-tools": {
+            "type": "local",
+            "command": ["python", "mcp_servers/redis_tools_server.py"],
+            "enabled": true
+        },
+
+        // 实时网页搜索 MCP（SSE 方式）
+        // Open Web Search（多引擎搜索 + 文章抓取，Docker 部署）
+        // 启动: docker run -d --name web-search -p 3000:3000 -e ENABLE_CORS=true -e CORS_ORIGIN=* ghcr.io/aas-ee/open-web-search:latest
+        "web-search": {
+            "type": "sse",
+            "url": "http://localhost:3000/sse",
+            "enabled": true
+        },
+
+        // 文件系统 MCP：让 AI 读写指定目录的文件，这个是最知名的第三方文件系统MCP
+        // ⚠ 必须至少提供一个绝对路径，AI 只能访问列出的目录
+        // 如果编程，不要接入这个filesystem mcp，serena就够了，接入太多mcp会浪费tokens和加大ai决策难度。
+        "filesystem": {
+            "type": "local",    
+            "command": ["npx",
+                "-y",
+                "@modelcontextprotocol/server-filesystem",
+                "D:/codes/nb_agent_bfzs"
+            ]
+        },
+        // 用户可以先独立方式启动nbrag mcp web服务， 也可以使用local模式启动
+         "nbrag": {
+            "type": "http",    
+            "url": "http://localhost:9101/mcp"
+        },
+        "context7": {
+            "type": "local",
+            "command": ["npx", "-y", "@upstash/context7-mcp@latest"],
+            "enabled": true
+        },
+        "serena": {
+            "type": "local",
+            "command": ["C:/Users/ydf6/.local/bin/serena.exe", "start-mcp-server", "--project", "D:/codes/nb_agent"],
             "enabled": true
         }
 
-        // 文件系统 MCP：让 AI 读写指定目录的文件
-        // ⚠ 必须至少提供一个绝对路径，AI 只能访问列出的目录
-        // "filesystem": {
-        //     "command": "npx",
-        //     "args": [
-        //         "-y",
-        //         "@modelcontextprotocol/server-filesystem",
-        //         "D:/codes/nb_agent_bfzs"
-        //     ]
-        // },
-
-        // 实时网页搜索 MCP（SSE 方式）
-        // "web-search": {
-        //     "type": "sse",
-        //     "url": "http://localhost:3000/sse",
-        //     "enabled": true
-        // }
     },
 
-    // 审批规则：危险工具需要用户确认
+    // 审批规则（更多更自由灵活的自定义规则见 approval_rules.py，代码比配置的表达能力更灵活强大）
     "approval": {
-        "dangerous_tools": ["delete_note"],
+        "dangerous_tools": ["note__delete_note", "mcp__redis-tools__redis_smart_set"],
         "auto_approve": false
     },
 

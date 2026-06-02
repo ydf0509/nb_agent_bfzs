@@ -8,6 +8,8 @@ git_log.py — 提取 Git 提交记录并输出结构化数据
   python3 scripts/git_log.py --since 2026-05-01 # 指定起始日期
   python3 scripts/git_log.py --format markdown  # 直接输出 Markdown
   python3 scripts/git_log.py --help             # 查看帮助
+
+这个需要用户配置了有执行cmd shell能力的mcp，不然没法执行python脚本。
 """
 
 import argparse

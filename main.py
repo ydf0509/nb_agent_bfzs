@@ -11,8 +11,17 @@ nb_agent_bfzs — 智能笔记助手（nb_agent 演示项目）
 """
 
 import tools  # noqa: F401  导入即注册自定义工具
-
+from approval_rules import ALL_RULES
 from nb_agent import load_config, AgentApp
 
 config = load_config()
-AgentApp(config).run()
+app = AgentApp(config)
+
+for rule in ALL_RULES: # 注册自定义审批规则（Redis 写命令弹窗确认、危险工具黑名单等）
+    app.agent.approval_engine.add_rule(rule)
+
+app.run()
+
+
+# powershell
+# cd D:/codes/nb_agent_bfzs;$env:PYTHONPATH = "D:/codes/nb_agent_bfzs";D:\ProgramData\Miniconda3\envs\py312\python.exe main.py

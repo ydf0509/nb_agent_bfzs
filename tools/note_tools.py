@@ -15,7 +15,7 @@ from pydantic import BaseModel, Field
 
 from nb_agent.tools import tool
 
-NOTES_DIR = Path(__file__).parent.parent / "notes"
+NOTES_DIR = Path(__file__).parent.parent / "notes_data"
 NOTES_DIR.mkdir(parents=True, exist_ok=True)
 
 

@@ -3,6 +3,7 @@ name: git-changelog
 description: >-
   生成 Git 变更日志。当用户要求生成 changelog、查看最近提交记录、
   整理版本发布说明、或总结代码变更历史时使用。
+  (说明：需要用户先配置了有终端执行能力的mcp,或者用户自己写个能执行终端命令的工具函数通过@tool暴露给ai，不然没法执行python脚本。)
 ---
 
 # Git 变更日志生成 Skill
