@@ -86,12 +86,6 @@ serena mcp的每个函数已经暴露了 入参和作用给ai，如果要让ai�
 nb-agent 能快速化身ai coding工具，是因为serena mcp 提供了精确的 索引 读 写 执行 操作，不需要用户再亲自实现了。
 ![alt text](pictures/image103.png)
 
-## nb-agent创建的 联网搜索智能体
-让大模型联网搜索总结，“普京上个月做了什么？”
-![alt text](pictures/image104.png)
-
-！！注意：大模型本身不能联网，如果你想联网需要配置mcp或者你自己写爬虫tool函数。推荐免费的 open-web-search  这个mcp,可以免费用十几个搜索引擎。
-
 ### 注意：
 
 如果要实现编程，只需要介入 serena 这一个mcp就可以了，不要再接各种乱七八糟的mcp。 serena专门为编程而生，具备精确的 索引 读 写 执行 操作，在编程场景吊打通用的 fielsystem mcp读写。
@@ -99,6 +93,14 @@ nb-agent化身编程终端，只需要接入serena 这一个mcp就可以了，�
 有的人老是以为编程非要再接 fielsystem mcp ，才能读写项目的代码文件，这是完全错误的想法。
 
 接入太多mcp会浪费tokens和加大ai决策难度，建议只接入必要的mcp。
+
+## nb-agent创建的 联网搜索智能体
+让大模型联网搜索总结，“普京上个月做了什么？”
+![alt text](pictures/image104.png)
+
+！！注意：大模型本身不能联网，如果你想联网需要配置mcp或者你自己写爬虫tool函数。推荐免费的 open-web-search  这个mcp,可以免费用十几个搜索引擎。
+
+
 
 
 ## 演示的 nb_agent 能力
