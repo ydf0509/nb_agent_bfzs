@@ -22,11 +22,21 @@
                     "name": "DeepSeek V4 Pro (官方直连)",
                     "limit": { "context": 1000000, "output": 384000 }
                 },
-                "aku-qwen3.5-397b": {
+                 "ds-deepseek-v4-flash-200k": {
+                    "name": "DeepSeek V4 Flash (官方直连)",
+                    "limit": { "context": 200000, "output": 64000 },
+                    "raw_model": "ds-deepseek-v4-flash"
+                },
+                "ds-deepseek-v4-pro-200k": {
+                    "name": "DeepSeek V4 Pro (官方直连)",
+                    "limit": { "context": 200000, "output": 64000 },
+                    "raw_model": "ds-deepseek-v4-pro"
+                },
+                "com-qwen3.5-397b": {
                     "name": "Qwen3.5 397B (公司)",
                     "limit": { "context": 131072, "output": 65536 }
                 },
-                "aku-qwen3.6-35b": {
+                "com-qwen3.6-35b": {
                     "name": "Qwen3.6 35B (公司)",
                     "limit": { "context": 131072, "output": 65536 }
                 },
@@ -73,7 +83,17 @@
                 "ark-deepseek-v4-pro": {
                     "name": "DeepSeek V4 Pro (方舟)",
                     "limit": { "context": 1000000, "output": 384000 }
-                }
+                },
+                  "ark-deepseek-v4-flash-200k": {
+                    "name": "DeepSeek V4 Flash (方舟)",
+                    "limit": { "context": 200000, "output": 64000 },
+                    "raw_model": "ark-deepseek-v4-flash"
+                },
+                "ark-deepseek-v4-pro-200k": {
+                    "name": "DeepSeek V4 Pro (方舟)",
+                    "limit": { "context": 200000, "output": 64000 },
+                    "raw_model": "ark-deepseek-v4-pro"
+                },
             }
         }
     },
