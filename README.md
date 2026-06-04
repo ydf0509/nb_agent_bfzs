@@ -6,7 +6,7 @@
 ## 快速开始
 
 ```bash
-pip install nb_agent
+pip install very_nb_agent # 注意install 是 very_nb_agent ，使用时候是import nb_agent ，因为nb_agent包名和别人的nbagent太相似被pypi拒绝
 cd nb_agent_bfzs
 python main.py
 ```
